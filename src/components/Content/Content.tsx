@@ -1,9 +1,16 @@
 import { Card } from '../Card/Card'
-import { PersonData } from '../../helpers/types'
+import { PersonData, displayView } from '../../helpers/types'
 import { useState } from 'react'
+import { Select, SimpleGrid } from '@chakra-ui/react'
 
 export const Content = () => {
   const [dataState, setDataState] = useState<PersonData[]>(JSON.parse(localStorage.getItem('data')!))
+  const [isListView, setIsListView] = useState<string>(displayView.LIST)
+  const Cards = dataState.map((person: PersonData) => <Card key={person.name} {...person} dataState={dataState} setDataState={setDataState} />)
+
+  const handleSelectChange = (e: any) => {
+    setIsListView(e.target.value === displayView.LIST ? displayView.LIST : displayView.GRID)
+  }
 
   return (
     <>
@@ -26,9 +33,17 @@ export const Content = () => {
           👉 Your code goes here 👈
           <div className='main-subtitle'>
             <h2>Previous Rulings</h2>
+            <Select width={'50%'} value={isListView} onChange={handleSelectChange} >
+              <option value='list'>List</option>
+              <option value='grid'>Grid</option>
+            </Select>
           </div>
           {
-            dataState.map((person: PersonData) => <Card key={person.name} {...person} dataState={dataState} setDataState={setDataState} />)
+            isListView === displayView.LIST
+              ? (Cards)
+              : (<SimpleGrid minChildWidth={'500px'} spacing={'40px'}>
+                {Cards}
+              </SimpleGrid>)
           }
         </main>
         <aside className="banner banner-bottom" role="doc-tip" aria-label="Submit a name">
