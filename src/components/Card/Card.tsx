@@ -3,6 +3,7 @@ import ThumbsUp from '../../assets/img/thumbs-up.svg'
 import ThumbsDown from '../../assets/img/thumbs-down.svg'
 import './Card.css'
 import { useState } from 'react'
+import moment from 'moment'
 
 export const Card = ({ name, description, category, picture, lastUpdated, votes, dataState, setDataState }: CardProps) => {
   const positivePercentage = votes.positive / (votes.positive + votes.negative) * 100
@@ -52,8 +53,6 @@ export const Card = ({ name, description, category, picture, lastUpdated, votes,
 
   return (
     <>
-      <p>{votes.positive}</p>
-      <p>{votes.negative}</p>
       <div className='card'>
         <div className='imageContainer'>
           <img src={picture} alt={`Image of ${name}`} style={{
@@ -69,7 +68,10 @@ export const Card = ({ name, description, category, picture, lastUpdated, votes,
         </div>
         <div>
           <span style={{ display: 'flex', justifyContent: 'flex-end', padding: '5px 15px' }}>
-            {lastUpdated}
+            {
+              moment(lastUpdated).fromNow()
+            }
+            &nbsp;in&nbsp;
             {category}
           </span>
           {
