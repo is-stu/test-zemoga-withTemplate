@@ -1,13 +1,32 @@
-import { PersonData } from '../../helpers/types'
+import { CardProps, PersonData } from '../../helpers/types'
 import ThumbsUp from '../../assets/img/thumbs-up.svg'
 import ThumbsDown from '../../assets/img/thumbs-down.svg'
 import './Card.css'
 
-export const Card = ({ name, description, category, picture, lastUpdated, votes }: PersonData) => {
+export const Card = ({ name, description, category, picture, lastUpdated, votes, dataState, setDataState }: CardProps) => {
   const positivePercentage = votes.positive / (votes.positive + votes.negative) * 100
   const negativePercentage = votes.negative / (votes.positive + votes.negative) * 100
+
+  const thumbsUpAction = () => {
+    const person = dataState.find((person: PersonData) => person.name === name)
+    if (person) {
+      const position = dataState.indexOf(person)
+      const newData = dataState.filter((person: PersonData) => person.name !== name)
+      const newPerson = {
+        ...person,
+        votes: {
+          positive: votes.positive + 1,
+          negative: votes.negative
+        }
+      }
+      newData.splice(position, 0, newPerson)
+      setDataState([...newData])
+    }
+  }
+
   return (
     <>
+      <p>{votes.positive}</p>
       <div className='card' style={{ width: '100%' }}>
         <div className='imageContainer'>
           <img src={picture} alt={`Image of ${name}`} />
@@ -23,7 +42,7 @@ export const Card = ({ name, description, category, picture, lastUpdated, votes 
             {category}
           </span>
           <div className='card-actions' >
-            <button className='action-button action__thumbUp'><img src={ThumbsUp} alt="thumbs up" /></button>
+            <button className='action-button action__thumbUp' onClick={thumbsUpAction}><img src={ThumbsUp} alt="thumbs up" /></button>
             <button className='action-button action__thumbDown'><img src={ThumbsDown} alt="thumbs down" /></button>
             <button className='action__voteNow' >Vote now</button>
           </div>
