@@ -15,6 +15,7 @@
     "@emotion/styled": "^11.11.0",
     "akar-icons": "^1.9.28",
     "framer-motion": "^10.12.18",
+    "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
