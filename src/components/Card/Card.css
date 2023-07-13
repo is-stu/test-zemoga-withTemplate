@@ -7,7 +7,8 @@
 
 .card-actions {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    grid-template-columns: repeat(2, 1fr);
     grid-column-gap: 1px;
     margin: 3px 3px;
 }
@@ -20,6 +21,10 @@
 .action-button:hover {
     width: 3rem;
     height: 3rem;
+    border: 1px solid var(--color-white);
+}
+
+.button-selected {
     border: 1px solid var(--color-white);
 }
 
@@ -39,19 +44,19 @@
 
 .action__voteNow {
     width: 100%;
-    background-color: var( --color-darker-background);
+    background-color: var(--color-darker-background);
     border: 1.5px solid var(--color-white);
     color: var(--color-white);
 }
 
 .action__voteNow:hover {
     width: 100%;
-    background-color: var( --color-light-background);
+    background-color: var(--color-light-background);
     border: 1.5px solid var(--color-white);
     color: var(--color-white);
 }
 
-.card-survey{
+.card-survey {
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -59,7 +64,7 @@
     color: var(--color-white);
 }
 
-.card-survey__percentage > span {
+.card-survey__percentage>span {
     padding: 0 10px;
 }
 
@@ -67,4 +72,18 @@
     display: flex;
     align-items: center;
     margin: 0 5px;
+}
+
+.action__voteAgain {
+    display: block;
+    margin: auto;
+    border: 1px solid var(--color-white);
+    padding: 5px 5px;
+    background-color: var(--color-dark-gray);
+    color: var(--color-white);
+}
+
+.info-text {
+    text-align: center;
+    margin: 5px 0;
 }
