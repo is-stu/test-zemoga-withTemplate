@@ -62,7 +62,6 @@
 .card-survey {
     display: flex;
     justify-content: space-between;
-    width: 100%;
     margin-bottom: 10px;
     color: var(--color-white);
 }

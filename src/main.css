@@ -740,4 +740,9 @@ main h2 {
     hr[role="separator"] {
         margin: 2rem 0;
     }
+
+    .main-subtitle{
+        display: flex;
+        justify-content: space-between;
+    }
 }
