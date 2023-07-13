@@ -2,13 +2,18 @@ import { CardProps, PersonData } from '../../helpers/types'
 import ThumbsUp from '../../assets/img/thumbs-up.svg'
 import ThumbsDown from '../../assets/img/thumbs-down.svg'
 import './Card.css'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import moment from 'moment'
 
 export const Card = ({ name, description, category, picture, lastUpdated, votes, dataState, setDataState }: CardProps) => {
   const positivePercentage = votes.positive / (votes.positive + votes.negative) * 100
   const negativePercentage = votes.negative / (votes.positive + votes.negative) * 100
   const [alreadyVote, setAlreadyVote] = useState<string[]>([])
+
+  useEffect(() => {
+    localStorage.clear()
+    localStorage.setItem('data', JSON.stringify(dataState))
+  }, [dataState])
 
   const thumbsUpAction = () => {
     const person = dataState.find((person: PersonData) => person.name === name)

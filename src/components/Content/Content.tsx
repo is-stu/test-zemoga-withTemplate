@@ -1,10 +1,9 @@
 import { Card } from '../Card/Card'
-import data from '../../assets/data.json'
 import { PersonData } from '../../helpers/types'
 import { useState } from 'react'
 
 export const Content = () => {
-  const [dataState, setDataState] = useState<PersonData[]>([...data.data])
+  const [dataState, setDataState] = useState<PersonData[]>(JSON.parse(localStorage.getItem('data')!))
 
   return (
     <>
@@ -16,7 +15,7 @@ export const Content = () => {
           </div>
           <div className="banner__right">
             <p className="banner__text">
-                            Rule of Thumb is a crowd sourced court of public opinion where anyone and everyone can speak out and speak freely. It’s easy: You share your opinion, we analyze and put the data in a public report.
+              Rule of Thumb is a crowd sourced court of public opinion where anyone and everyone can speak out and speak freely. It’s easy: You share your opinion, we analyze and put the data in a public report.
             </p>
           </div>
           <button className="icon-button" aria-label="close">
@@ -25,6 +24,9 @@ export const Content = () => {
         </aside>
         <main role="main">
           👉 Your code goes here 👈
+          <div className='main-subtitle'>
+            <h2>Previous Rulings</h2>
+          </div>
           {
             dataState.map((person: PersonData) => <Card key={person.name} {...person} dataState={dataState} setDataState={setDataState} />)
           }
@@ -41,7 +43,7 @@ export const Content = () => {
           </div>
           <div className="banner__right">
             <button className="banner__cta">
-                            Submit a name
+              Submit a name
             </button>
           </div>
         </aside>
