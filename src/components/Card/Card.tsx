@@ -67,8 +67,8 @@ export const Card = ({ name, description, category, picture, lastUpdated, votes,
           }} />
         </div>
         <div className='Card card-info'>
-          <h2 className="featured-card__title">{name} </h2>
-          <p className="featured-card__desc">{description}</p>
+          <h2 className="featured-card__title" style={{ padding: '10px 0 0 10px' }}>{name} </h2>
+          <p className="featured-card__desc" style={{ padding: '0 10px' }}>{description}</p>
 
         </div>
         <div>
