@@ -53,9 +53,14 @@ export const Card = ({ name, description, category, picture, lastUpdated, votes,
   return (
     <>
       <p>{votes.positive}</p>
-      <div className='card' style={{ width: '100%' }}>
+      <p>{votes.negative}</p>
+      <div className='card'>
         <div className='imageContainer'>
-          <img src={picture} alt={`Image of ${name}`} />
+          <img src={picture} alt={`Image of ${name}`} style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover'
+          }} />
         </div>
         <div className='Card card-info'>
           <h2 className="featured-card__title">{name} </h2>
