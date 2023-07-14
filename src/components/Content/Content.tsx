@@ -1,16 +1,39 @@
 import { Card } from '../Card/Card'
 import { PersonData, displayView } from '../../helpers/types'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Select, SimpleGrid } from '@chakra-ui/react'
 
 export const Content = () => {
   const [dataState, setDataState] = useState<PersonData[]>(JSON.parse(localStorage.getItem('data')!))
   const [isListView, setIsListView] = useState<string>(displayView.LIST)
+  const [width, setWidth] = useState<boolean>(false)
   const Cards = dataState.map((person: PersonData) => <Card key={person.name} {...person} dataState={dataState} setDataState={setDataState} isListView={isListView} />)
 
   const handleSelectChange = (e: any) => {
     setIsListView(e.target.value === displayView.LIST ? displayView.LIST : displayView.GRID)
   }
+
+  console.log(width)
+  console.log(isListView === displayView.LIST)
+
+  useEffect(() => {
+    const handleResize = () => {
+      const isMobileDevice = window.innerWidth <= 768
+      setWidth(isMobileDevice)
+    }
+
+    handleResize()
+
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
+
+  useEffect(() => {
+    width ? setIsListView(displayView.GRID) : setIsListView(displayView.LIST)
+  }, [width])
 
   return (
     <>
@@ -33,13 +56,15 @@ export const Content = () => {
           👉 Your code goes here 👈
           <div className='main-subtitle'>
             <h2>Previous Rulings</h2>
-            <Select width={'50%'} value={isListView} onChange={handleSelectChange} >
-              <option value='list'>List</option>
-              <option value='grid'>Grid</option>
-            </Select>
+            {
+              !width && (<Select width={'50%'} value={isListView} onChange={handleSelectChange} >
+                <option value='list'>List</option>
+                <option value='grid'>Grid</option>
+              </Select>)
+            }
           </div>
           {
-            isListView === displayView.LIST
+            (isListView === displayView.LIST)
               ? (Cards)
               : (<SimpleGrid minChildWidth={'500px'} spacing={'40px'}>
                 {Cards}
