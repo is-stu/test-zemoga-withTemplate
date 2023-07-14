@@ -2,9 +2,10 @@ import { Card } from '../Card/Card'
 import { PersonData, displayView } from '../../helpers/types'
 import { useEffect, useState } from 'react'
 import { Select, SimpleGrid } from '@chakra-ui/react'
+import { data } from '../../assets/data.json'
 
 export const Content = () => {
-  const [dataState, setDataState] = useState<PersonData[]>(JSON.parse(localStorage.getItem('data')!))
+  const [dataState, setDataState] = useState<PersonData[]>(JSON.parse(localStorage.getItem('data')!) || data)
   const [isListView, setIsListView] = useState<string>(displayView.LIST)
   const [width, setWidth] = useState<boolean>(false)
   const Cards = dataState.map((person: PersonData) => <Card key={person.name} {...person} dataState={dataState} setDataState={setDataState} isListView={isListView} />)
