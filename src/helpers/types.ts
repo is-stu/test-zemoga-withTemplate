@@ -14,6 +14,7 @@ export interface PersonData {
 export interface CardProps extends PersonData {
     dataState: PersonData[],
     setDataState: (value: PersonData[])=>void
+    isListView: string
 }
 
 export enum displayView {

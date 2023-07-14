@@ -7,6 +7,25 @@
     overflow: hidden;
 }
 
+.card-bg_image{
+    grid-template-columns: 1fr 1fr;
+    color: var(--color-white)
+}
+
+.grid-mode {
+    color: var(--color-white);
+}
+
+.grid-mode__title{
+    font-size: larger !important;
+    font-weight: bold !important;
+}
+
+.grid-mode__subtitle{
+    font-size: medium !important;
+    background-color:rgba(0, 0, 0, 0.3);
+}
+
 
 .card-actions {
     display: grid;

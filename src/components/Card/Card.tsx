@@ -1,11 +1,11 @@
-import { CardProps, PersonData } from '../../helpers/types'
+import { CardProps, PersonData, displayView } from '../../helpers/types'
 import ThumbsUp from '../../assets/img/thumbs-up.svg'
 import ThumbsDown from '../../assets/img/thumbs-down.svg'
 import './Card.css'
 import { useEffect, useState } from 'react'
 import moment from 'moment'
 
-export const Card = ({ name, description, category, picture, lastUpdated, votes, dataState, setDataState }: CardProps) => {
+export const Card = ({ name, description, category, picture, lastUpdated, votes, dataState, setDataState, isListView }: CardProps) => {
   const positivePercentage = votes.positive / (votes.positive + votes.negative) * 100
   const negativePercentage = votes.negative / (votes.positive + votes.negative) * 100
   const [alreadyVote, setAlreadyVote] = useState<string[]>([])
@@ -59,17 +59,25 @@ export const Card = ({ name, description, category, picture, lastUpdated, votes,
   return (
     <>
       <div>
-        <div className='card'>
-          <div className='imageContainer'>
-            <img src={picture} alt={`Image of ${name}`} style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover'
-            }} />
-          </div>
+        <div className={`card ${isListView === displayView.GRID && 'card-bg_image'}`} style={ isListView === displayView.GRID
+          ? {
+            backgroundImage: "url('" + picture + "')",
+            backgroundPosition: 'center',
+            backgroundSize: 'cover'
+          }
+          : {}}>
+          {
+            isListView === displayView.LIST && (<div className='imageContainer'>
+              <img src={picture} alt={`Image of ${name}`} style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover'
+              }} />
+            </div>)
+          }
           <div className='Card card-info'>
-            <h2 className="featured-card__title" style={{ padding: '10px 0 0 10px' }}>{name} </h2>
-            <p className="featured-card__desc" style={{ padding: '0 10px' }}>{description}</p>
+            <h2 className={`featured-card__title  ${isListView === displayView.GRID && 'grid-mode grid-mode__title'}`} style={{ padding: '10px 0 0 10px' }}>{name} </h2>
+            <p className={`featured-card__desc ${isListView === displayView.GRID && 'grid-mode grid-mode__subtitle'}`} style={{ padding: '0 10px' }}>{description}</p>
 
           </div>
           <div>
@@ -77,7 +85,7 @@ export const Card = ({ name, description, category, picture, lastUpdated, votes,
               {
                 moment(lastUpdated).fromNow()
               }
-            &nbsp;in&nbsp;
+              &nbsp;in&nbsp;
               {category}
             </span>
             {
@@ -110,7 +118,7 @@ export const Card = ({ name, description, category, picture, lastUpdated, votes,
             </span>
           </div>
         </div>
-      </div>
+      </div >
     </>
   )
 }

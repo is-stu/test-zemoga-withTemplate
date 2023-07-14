@@ -6,7 +6,7 @@ import { Select, SimpleGrid } from '@chakra-ui/react'
 export const Content = () => {
   const [dataState, setDataState] = useState<PersonData[]>(JSON.parse(localStorage.getItem('data')!))
   const [isListView, setIsListView] = useState<string>(displayView.LIST)
-  const Cards = dataState.map((person: PersonData) => <Card key={person.name} {...person} dataState={dataState} setDataState={setDataState} />)
+  const Cards = dataState.map((person: PersonData) => <Card key={person.name} {...person} dataState={dataState} setDataState={setDataState} isListView={isListView} />)
 
   const handleSelectChange = (e: any) => {
     setIsListView(e.target.value === displayView.LIST ? displayView.LIST : displayView.GRID)
